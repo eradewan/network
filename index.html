@@ -103,22 +103,7 @@ links.push({ source: "Elon Musk", target: "Peter Thiel", text: "PayPal co-founde
   .attr("dx", -20)
   .attr("dy", 4);
       
-      // add the hover text using the title element
-const linkText = svg.append("g")
-  .selectAll("text")
-  .data(links)
-  .enter().append("text")
-  .attr("class", "link-text")
-  .text(d => d.text || "");
-
-link.append("title")
-  .text(d => d.text || "");
       
-            link.on("mouseover", function(d) {
-  d3.select(this).classed("hover", true);
-}).on("mouseout", function(d) {
-  d3.select(this).classed("hover", false);
-});
     </script>
   </body>
 </html>
