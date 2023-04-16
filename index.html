@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
@@ -63,75 +63,4 @@
       });
     </script>
   </body>
-</html> -->
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>D3 Circle Network Example</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-  </head>
-  <body>
-    <svg width="500" height="500">
-      <circle cx="250" cy="250" r="200" fill="none" stroke="black"></circle>
-    </svg>
-
-    <script>
-      const nodes = [
-        { id: "Node 1", group: 1 },
-        { id: "Node 2", group: 2 },
-        { id: "Node 3", group: 1 },
-        { id: "Node 4", group: 2 },
-      ];
-
-      const links = [
-        { source: "Node 1", target: "Node 2" },
-        { source: "Node 1", target: "Node 3" },
-        { source: "Node 2", target: "Node 4" },
-      ];
-
-      const svg = d3.select("svg");
-      const width = +svg.attr("width");
-      const height = +svg.attr("height");
-
-      const simulation = d3.forceSimulation(nodes)
-        .force("link", d3.forceLink(links).id(d => d.id))
-        .force("charge", d3.forceManyBody())
-        .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("circle", d3.forceEnclose([250, 250], 200));
-
-      const link = svg.append("g")
-        .attr("stroke", "#999")
-        .attr("stroke-opacity", 0.6)
-        .selectAll("line")
-        .data(links)
-        .join("line");
-
-      const node = svg.append("g")
-        .attr("stroke", "#fff")
-        .attr("stroke-width", 1.5)
-        .selectAll("circle")
-        .data(nodes)
-        .join("circle")
-        .attr("r", 5)
-        .attr("fill", d => d.group === 1 ? "red" : "blue");
-
-      node.append("title")
-        .text(d => d.id);
-
-      simulation.on("tick", () => {
-        link
-          .attr("x1", d => d.source.x)
-          .attr("y1", d => d.source.y)
-          .attr("x2", d => d.target.x)
-          .attr("y2", d => d.target.y);
-
-        node
-          .attr("cx", d => d.x)
-          .attr("cy", d => d.y);
-      });
-    </script>
-  </body>
 </html>
-
