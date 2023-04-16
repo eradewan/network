@@ -35,7 +35,7 @@ const links = [];
 for (let i = 0; i < members.length; i++) {
   for (let j = i + 1; j < members.length; j++) {
     if (members[i] !== members[j]) {
-      links.push({ source: members[i], target: members[j] });
+      links.push({ source: members[i], target: members[j], text: "gggggggg" });
     }
   }
 }
@@ -68,7 +68,12 @@ links.push({ source: "Elon Musk", target: "Peter Thiel", text: "PayPal co-founde
         .data(nodes)
         .join("circle")
         .attr("r", 5)
-        .attr("fill", d => d.group === 1 ? "red" : "blue");
+        .attr("fill", d => d.group === 1 ? "red" : "blue")
+      // add onclick event listener to the elon node
+  .on("click", function(d) {
+    if (d.id === "Elon Musk") {
+      window.open("https://en.wikipedia.org/wiki/Elon_Musk");
+    }});
 
       node.append("title")
         .text(d => d.id);
@@ -106,14 +111,13 @@ const linkText = svg.append("g")
   .attr("class", "link-text")
   .text(d => d.text || "");
 
-linkText.append("title")
+link.append("title")
   .text(d => d.text || "");
       
             link.on("mouseover", function(d) {
-  linkText.attr("opacity", e => (e.source === d.source && e.target === d.target) ? 1 : 0);
-})
-.on("mouseout", function() {
-  linkText.attr("opacity", 0);
+  d3.select(this).classed("hover", true);
+}).on("mouseout", function(d) {
+  d3.select(this).classed("hover", false);
 });
     </script>
   </body>
